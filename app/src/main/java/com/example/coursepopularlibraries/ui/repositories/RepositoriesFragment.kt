@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.coursepopularlibraries.databinding.ListOfUsersFragmentBinding
-import com.example.coursepopularlibraries.databinding.RepositoriesFragmentBinding
+import com.example.coursepopularlibraries.databinding.FragmentRepositoriesBinding
 import com.example.coursepopularlibraries.ui.users.ListOfUsersFragment
 import com.example.coursepopularlibraries.ui.users.ListOfUsersViewModel
 
@@ -17,19 +16,27 @@ class RepositoriesFragment : Fragment() {
         fun newInstance() = ListOfUsersFragment()
     }
 
-    private lateinit var binding: RepositoriesFragmentBinding
+    private var _binding: FragmentRepositoriesBinding? = null
+    private val binding
+        get() = _binding!!
+
     private val viewModel by viewModels<ListOfUsersViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = RepositoriesFragmentBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRepositoriesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

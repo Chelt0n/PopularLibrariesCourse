@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.coursepopularlibraries.R
-import com.example.coursepopularlibraries.databinding.ProfileFragmentBinding
+import com.example.coursepopularlibraries.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
@@ -16,14 +14,16 @@ class ProfileFragment : Fragment() {
         fun newInstance() = ProfileFragment()
     }
 
-    private lateinit var binding: ProfileFragmentBinding
-    private val viewModel by viewModels<ProfileViewModel>()
+    private var _binding: FragmentProfileBinding? = null
+    private val binding
+        get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileFragmentBinding.inflate(layoutInflater, container, false)
+    ): View {
+        _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -32,5 +32,9 @@ class ProfileFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
