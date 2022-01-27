@@ -39,4 +39,14 @@ class ListOfUsersFragment : Fragment() {
         }
     }
 
+    private fun logD(serverResponseData: List<GitHubUsers>) {
+        for (i in 0..serverResponseData.size) {
+            Log.d("myLog", serverResponseData[i].login)
+        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }
