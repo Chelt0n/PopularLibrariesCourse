@@ -8,20 +8,23 @@ import com.example.coursepopularlibraries.R
 import com.example.coursepopularlibraries.data.model.GitHubUsers
 import com.example.coursepopularlibraries.databinding.RecyclerItemListUsersBinding
 
-class ListOfUsersRecyclerViewAdapter() :
-    RecyclerView.Adapter<ListOfUsersRecyclerViewAdapter.MyViewHolder>() {
+class ListOfUsersRecyclerViewAdapter(
+    private val onClickUser: ((item: GitHubUsers) -> Unit)
+) : RecyclerView.Adapter<ListOfUsersRecyclerViewAdapter.MyViewHolder>() {
 
     private var list = emptyList<GitHubUsers>()
 
-    fun setUserList(list: List<GitHubUsers>) {
+    fun setUsersList(list: List<GitHubUsers>) {
         this.list = list
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
         return MyViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_item_list_users, parent, false)
+            itemView = inflater.inflate(
+                R.layout.recycler_item_list_users, parent, false
+            ), onClickUser = onClickUser
         )
     }
 
@@ -33,10 +36,14 @@ class ListOfUsersRecyclerViewAdapter() :
         return list.size
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MyViewHolder(
+        itemView: View,
+        private val onClickUser: (item: GitHubUsers) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
         private val binding = RecyclerItemListUsersBinding.bind(itemView)
-        fun render(list: GitHubUsers) {
-            binding.usersListTextView.text = list.login
+        fun render(user: GitHubUsers) {
+            binding.usersListTextView.text = user.login
+            binding.usersListTextView.setOnClickListener { onClickUser(user) }
         }
     }
 }

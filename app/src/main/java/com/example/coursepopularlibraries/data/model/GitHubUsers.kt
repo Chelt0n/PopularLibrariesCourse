@@ -1,6 +1,7 @@
 package com.example.coursepopularlibraries.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class GitHubUsers(
     @SerializedName("login")
@@ -37,4 +38,4 @@ data class GitHubUsers(
     val receivedEventsURL: String,
     @SerializedName("site_admin")
     val siteAdmin: Boolean
-)
+) : Serializable
