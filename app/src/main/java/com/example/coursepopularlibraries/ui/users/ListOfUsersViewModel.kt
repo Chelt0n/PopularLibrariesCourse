@@ -3,18 +3,15 @@ package com.example.coursepopularlibraries.ui.users
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.coursepopularlibraries.data.api.GitHubApiRetrofit
 import com.example.coursepopularlibraries.data.model.GitHubUsers
-import com.example.coursepopularlibraries.data.repository.DetailsRepositoryImpl
+import com.example.coursepopularlibraries.data.repository.DetailsRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class ListOfUsersViewModel(
-    private val detailsRepositoryImpl: DetailsRepositoryImpl = DetailsRepositoryImpl(
-        GitHubApiRetrofit()
-    )
+    private val repository: DetailsRepository
 ) : ViewModel() {
     private val liveData: MutableLiveData<AppStateGitHubUsers> = MutableLiveData()
 
@@ -25,7 +22,7 @@ class ListOfUsersViewModel(
 
     private fun sendServerRequest() {
         liveData.value = AppStateGitHubUsers.Loading(null)
-        detailsRepositoryImpl.getGitHubUsers(callback)
+        repository.getGitHubUsers(callback)
     }
 
 

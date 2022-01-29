@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import coil.load
+import com.example.coursepopularlibraries.App
 import com.example.coursepopularlibraries.data.model.GitHubUsers
 import com.example.coursepopularlibraries.databinding.FragmentRepositoriesBinding
+import com.example.coursepopularlibraries.utils.viewModels
 
 class UserRepositoriesFragment : Fragment() {
 
@@ -28,7 +29,9 @@ class UserRepositoriesFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel by viewModels<RepositoriesViewModel>()
+    private val viewModel by viewModels(this) {
+        RepositoriesViewModel((requireActivity().application as App).repository)
+    }
     private val adapter by lazy {
         UserRepositoriesRecyclerViewAdapter(
             onClickUser = {
