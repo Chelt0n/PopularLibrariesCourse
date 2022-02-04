@@ -13,10 +13,4 @@ interface GitHubApiService {
     fun getGitHubUsers():Single<List<GitHubUsers>>
     @GET("users/{user}/repos")
     fun getRepositories(@Path("user") user:String):Single<List<User>>
-
-
-//    @GET("users")
-//    fun getGitHubUsers():Call<List<GitHubUsers>>
-//    @GET("users/{user}/repos")
-//    fun getRepositories(@Path("user") user:String):Call<List<User>>
 }

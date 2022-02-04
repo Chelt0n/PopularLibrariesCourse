@@ -60,14 +60,6 @@ class UserRepositoriesFragment : Fragment() {
         viewModel.getUserRepositories(gitHubUser.login)
             .observe(viewLifecycleOwner, { appState -> render(appState) })
 
-        binding.btn.setOnClickListener { binding.btn.text = textbtn(binding.btn.text as String) }
-
-    }
-
-    private fun textbtn(index:String): String {
-        var i = index.toInt()
-        i++
-        return i.toString()
     }
 
     private fun render(appState: AppStateUser) {
