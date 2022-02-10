@@ -22,22 +22,10 @@ class ListOfUsersViewModel(
 
     private fun sendServerRequest() {
         liveData.value = AppStateGitHubUsers.Loading(null)
-        repository.getGitHubUsers(callback)
+        repository.getGitHubUsers().subscribe({
+            liveData.value = AppStateGitHubUsers.Success(it)
+        }, {
+            liveData.value = AppStateGitHubUsers.Error(it)
+        })
     }
-
-
-    private val callback = object : Callback<List<GitHubUsers>> {
-        override fun onResponse(
-            call: Call<List<GitHubUsers>>,
-            response: Response<List<GitHubUsers>>
-        ) {
-            liveData.value = AppStateGitHubUsers.Success(response.body()!!)
-        }
-
-        override fun onFailure(call: Call<List<GitHubUsers>>, t: Throwable) {
-            liveData.value = AppStateGitHubUsers.Error(Throwable("error"))
-        }
-    }
-
-
 }
