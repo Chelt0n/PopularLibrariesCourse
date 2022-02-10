@@ -11,6 +11,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class GitHubApiRetrofit {
     private val url = "https://api.github.com/"
 
+    fun getGitHubServiceWithoutRx(): GitHubApiServiceWithoutRx {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(url)
+            .client(createOkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .build()
+        return retrofit.create(GitHubApiServiceWithoutRx::class.java)
+    }
+
     fun getGitHubService(): GitHubApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl(url)
