@@ -35,7 +35,7 @@ class UserRepositoriesFragment : Fragment() {
     private val adapter by lazy {
         UserRepositoriesRecyclerViewAdapter(
             onClickUser = {
-                Toast.makeText(context, "NTS", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "", Toast.LENGTH_SHORT).show()
             }
         )
     }
