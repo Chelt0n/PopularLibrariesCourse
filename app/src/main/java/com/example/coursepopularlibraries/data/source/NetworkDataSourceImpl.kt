@@ -12,13 +12,9 @@ class NetworkDataSourceImpl(private val retrofit: GitHubApiRetrofit) : NetworkDa
     override fun getGitHubUsers(): Single<List<GitHubUsers>> =
         retrofit.getGitHubService()
             .getGitHubUsers()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
 
 
     override fun getUserRepositories(user: String): Single<List<User>> =
         retrofit.getGitHubService()
             .getRepositories(user)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
 }
